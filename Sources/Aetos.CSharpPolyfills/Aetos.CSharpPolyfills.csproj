@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>14</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Aetos.CSharpPolyfills</PackageId>
+    <Authors>aetos382</Authors>
+    <Description>A collection of polyfills that backport newer C# language features and BCL APIs to older target frameworks. Types and extension members are injected directly as source at compile time.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/aetos382/csharp-polyfills</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aetos382/csharp-polyfills.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>polyfill;csharp;compatibility;netstandard</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="*.cs" />
+
+    <None Include="*.cs"
+          Pack="true"
+          PackagePath="contentFiles\cs\any\"
+          BuildAction="Compile"
+          CopyToOutput="false"
+          Visible="false" />
+
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

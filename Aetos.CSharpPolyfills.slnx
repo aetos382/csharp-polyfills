@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/Sources/">
+    <Project Path="Sources/Aetos.CSharpPolyfills/Aetos.CSharpPolyfills.csproj" />
+  </Folder>
+</Solution>

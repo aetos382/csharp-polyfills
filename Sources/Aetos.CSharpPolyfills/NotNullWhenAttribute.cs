@@ -1,4 +1,4 @@
-#if !NETSTANDARD_2_1_OR_GREATER && !NETCOREAPP_3_0_OR_GREATER
+#if !NETSTANDARD2_1_OR_GREATER && !NETCOREAPP3_0_OR_GREATER
 
 using Microsoft.CodeAnalysis;
 
@@ -6,9 +6,10 @@ namespace System.Diagnostics.CodeAnalysis;
 
 [AttributeUsage(AttributeTargets.Parameter)]
 [Embedded]
-internal sealed class MaybeNullWhenAttribute : Attribute
+internal sealed class NotNullWhenAttribute :
+    Attribute
 {
-    public MaybeNullWhenAttribute(
+    public NotNullWhenAttribute(
         bool returnValue)
     {
         this.ReturnValue = returnValue;
