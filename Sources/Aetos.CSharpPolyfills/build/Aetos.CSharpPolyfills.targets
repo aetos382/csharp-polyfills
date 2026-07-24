@@ -1,0 +1,35 @@
+<Project>
+
+  <!--
+    extension(...) ブロックを使うポリフィルが含まれているため、実効 LangVersion が
+    C# 14 未満だとコンパイル エラーになる。既定の LangVersion は TargetFramework ごとに
+    net10.0 以外はすべて 14 未満になるため、分かりにくいコンパイラ エラーの前に
+    分かりやすいメッセージを出す。
+  -->
+  <PropertyGroup>
+    <_AetosCSharpPolyfills_MinimumLangVersion>14.0</_AetosCSharpPolyfills_MinimumLangVersion>
+    <_AetosCSharpPolyfills_MinimumSdkVersion>10.0.0</_AetosCSharpPolyfills_MinimumSdkVersion>
+  </PropertyGroup>
+
+  <Target Name="AetosCSharpPolyfills_CheckSdkVersion" BeforeTargets="CoreCompile">
+    <Error
+      Condition="'$(NETCoreSdkVersion)' != '' and !$([MSBuild]::VersionGreaterThanOrEquals('$(NETCoreSdkVersion)', '$(_AetosCSharpPolyfills_MinimumSdkVersion)'))"
+      Text="Aetos.CSharpPolyfills requires the .NET $(_AetosCSharpPolyfills_MinimumSdkVersion) SDK or later (uses C# $(_AetosCSharpPolyfills_MinimumLangVersion) syntax). The installed SDK is '$(NETCoreSdkVersion)'. Install a newer .NET SDK." />
+  </Target>
+
+  <Target Name="AetosCSharpPolyfills_CheckLangVersion" BeforeTargets="CoreCompile" AfterTargets="AetosCSharpPolyfills_CheckSdkVersion">
+    <PropertyGroup>
+      <!-- ISO-1 / ISO-2 は C# 1.x / 2.0 相当の古いキーワードなので、数値比較できるようそれぞれ 1 / 2 に正規化する -->
+      <_AetosCSharpPolyfills_NormalizedLangVersion>$(LangVersion)</_AetosCSharpPolyfills_NormalizedLangVersion>
+      <_AetosCSharpPolyfills_NormalizedLangVersion Condition="'$(LangVersion)' == 'ISO-1'">1</_AetosCSharpPolyfills_NormalizedLangVersion>
+      <_AetosCSharpPolyfills_NormalizedLangVersion Condition="'$(LangVersion)' == 'ISO-2'">2</_AetosCSharpPolyfills_NormalizedLangVersion>
+
+      <_AetosCSharpPolyfills_LangVersionIsKnownSufficient Condition="'$(LangVersion)' == 'preview' or '$(LangVersion)' == 'latest' or '$(LangVersion)' == 'latestmajor'">true</_AetosCSharpPolyfills_LangVersionIsKnownSufficient>
+      <_AetosCSharpPolyfills_LangVersionIsNumeric Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(_AetosCSharpPolyfills_NormalizedLangVersion)', '^[0-9]+(\.[0-9]+)?$'))">true</_AetosCSharpPolyfills_LangVersionIsNumeric>
+    </PropertyGroup>
+    <Error
+      Condition="'$(_AetosCSharpPolyfills_LangVersionIsKnownSufficient)' != 'true' and '$(_AetosCSharpPolyfills_LangVersionIsNumeric)' == 'true' and !$([MSBuild]::VersionGreaterThanOrEquals('$(_AetosCSharpPolyfills_NormalizedLangVersion)', '$(_AetosCSharpPolyfills_MinimumLangVersion)'))"
+      Text="Aetos.CSharpPolyfills requires C# $(_AetosCSharpPolyfills_MinimumLangVersion) or later. The effective LangVersion for target framework '$(TargetFramework)' is '$(LangVersion)', which is too low. Add &lt;LangVersion&gt;$(_AetosCSharpPolyfills_MinimumLangVersion)&lt;/LangVersion&gt; (or 'latest'/'preview') to your project." />
+  </Target>
+
+</Project>

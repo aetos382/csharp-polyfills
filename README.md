@@ -12,6 +12,13 @@ Each polyfill is guarded by a target-framework `#if` condition and is automatica
 dotnet add package Aetos.CSharpPolyfills
 ```
 
+## Requirements
+
+- **.NET SDK 10.0 or later** (the C# compiler bundled with your SDK must support C# 14)
+- **`LangVersion` 14 or later** in your consuming project (e.g. `<LangVersion>14</LangVersion>`, `latest`, or `preview`)
+
+Some polyfills use C# extension member (`extension(...)`) syntax, which requires both of the above. Since the polyfill source is injected directly into your project's compilation, your own project's SDK and `LangVersion` apply — not the package author's. The default `LangVersion` is below 14 for every target framework this package supports except `net10.0`, so most consuming projects need to set it explicitly.
+
 ## What's included
 
 - `System.ArgumentNullException.ThrowIfNull` (`!NET6_0_OR_GREATER`)
@@ -37,11 +44,11 @@ dotnet add package Aetos.CSharpPolyfills
 
 As a policy, this package does not keep special-case support for .NET releases once they reach end of support (per the [.NET support policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)). When a release goes EOL, guards and overloads that existed only to preserve fidelity for that release may be simplified or dropped in a subsequent version.
 
+`ArgumentOutOfRangeException.ThrowIfZero`/`ThrowIfNegative`/`ThrowIfNegativeOrZero` are generic over `INumberBase<T>` in the real BCL (net8+), but `INumberBase<T>` itself only exists starting with net7.0 — a framework this package no longer targets (see the EOL policy above). Since none of the target frameworks this package supports have `INumberBase<T>`, the polyfill instead provides non-generic overloads for the common numeric types (`sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `nint`, `nuint`, `float`, `double`, `decimal`). Custom `INumberBase<T>`-implementing types are not supported on those frameworks.
+
 ## Notes
 
-- Some polyfills (e.g. `ArgumentNullException.ThrowIfNull`) use C# extension member (`extension(...)`) blocks. Your consuming project's own `LangVersion` controls whether this syntax compiles, since the source is injected into your compilation — make sure it's high enough for your SDK (e.g. `<LangVersion>latest</LangVersion>` or `preview`, depending on your toolchain).
 - The package is marked as a `development dependency`, so it won't appear as a dependency of your own published NuGet package.
-- `ArgumentOutOfRangeException.ThrowIfZero`/`ThrowIfNegative`/`ThrowIfNegativeOrZero` are generic over `INumberBase<T>` in the real BCL (net8+). Since `INumberBase<T>` does not exist on the older frameworks this package targets, the polyfill instead provides non-generic overloads for the common numeric types (`sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `nint`, `nuint`, `float`, `double`, `decimal`). Custom `INumberBase<T>`-implementing types are not supported on those frameworks.
 
 ## License
 
