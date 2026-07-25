@@ -27,6 +27,7 @@ internal static class ArgumentOutOfRangeExceptionExtensions
         public static void ThrowIfZero(double value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value == 0, paramName);
         public static void ThrowIfZero(decimal value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value == 0, paramName);
 
+#pragma warning disable IDE0060
         public static void ThrowIfNegative(sbyte value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value < 0, paramName);
         public static void ThrowIfNegative(byte value, [CallerArgumentExpression(nameof(value))] string? paramName = null) { }
         public static void ThrowIfNegative(short value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value < 0, paramName);
@@ -40,6 +41,7 @@ internal static class ArgumentOutOfRangeExceptionExtensions
         public static void ThrowIfNegative(float value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value < 0, paramName);
         public static void ThrowIfNegative(double value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value < 0, paramName);
         public static void ThrowIfNegative(decimal value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value < 0, paramName);
+#pragma warning restore
 
         public static void ThrowIfNegativeOrZero(sbyte value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value <= 0, paramName);
         public static void ThrowIfNegativeOrZero(byte value, [CallerArgumentExpression(nameof(value))] string? paramName = null) => ThrowIf(value == 0, paramName);
