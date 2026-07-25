@@ -1,6 +1,6 @@
 # Aetos.CSharpPolyfills
 
-![NuGet Version](https://img.shields.io/nuget/v/Aetos.CSharpPolyfills?color=%23004880)
+[![NuGet Version](https://img.shields.io/nuget/v/Aetos.CSharpPolyfills?color=%23004880)](https://www.nuget.org/packages/Aetos.CSharpPolyfills/)
 
 A collection of polyfills that backport newer C# language features and .NET BCL APIs to older target frameworks (e.g. `netstandard2.0`, `net462`).
 
