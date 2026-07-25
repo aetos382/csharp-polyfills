@@ -1,0 +1,11 @@
+# このファイルは Aetos.CSharpPolyfills パッケージの contentFiles として展開される
+# ポリフィル ソース フォルダ (contentFiles/cs/any/Polyfills/) にのみ配置される .editorconfig であり、
+# 利用先プロジェクトの .editorconfig / スタイル ルールがポリフィル ソースに適用されて
+# 大量の警告が出るのを防ぐためのもの。root = true により、利用先プロジェクトの
+# .editorconfig の設定を継承しないようにする。
+root = true
+
+[*.cs]
+# アナライザー (StyleCop.Analyzers、.NET analyzers など) による診断を一括で無効化する。
+# コンパイラ本体の CS 警告は対象外だが、このプロジェクト自体は警告なしでビルドされる。
+dotnet_analyzer_diagnostic.severity = none

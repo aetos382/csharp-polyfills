@@ -48,6 +48,11 @@
           CopyToOutput="false"
           Visible="false" />
 
+    <None Include="Polyfills.editorconfig"
+          Pack="true"
+          PackagePath="contentFiles/cs/any/Polyfills/.editorconfig"
+          Visible="false" />
+
     <None Include="..\..\README.md" Pack="true" PackagePath="/" />
 
     <None Include="build\Aetos.CSharpPolyfills.targets" Pack="true" PackagePath="build/" />
