@@ -1,5 +1,7 @@
 # Aetos.CSharpPolyfills
 
+![NuGet Version](https://img.shields.io/nuget/v/Aetos.CSharpPolyfills?color=%23004880)
+
 A collection of polyfills that backport newer C# language features and .NET BCL APIs to older target frameworks (e.g. `netstandard2.0`, `net462`).
 
 This is distributed as a **source-only package**. The types and extension members it provides are injected as `.cs` source directly into the consuming project's compilation, rather than shipped as a compiled assembly (most of the types are `internal`, so a normal DLL reference wouldn't be usable from the consumer anyway).
