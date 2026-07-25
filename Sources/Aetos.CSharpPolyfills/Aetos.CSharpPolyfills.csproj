@@ -43,7 +43,7 @@
 
     <None Include="*.cs"
           Pack="true"
-          PackagePath="contentFiles/cs/any/"
+          PackagePath="contentFiles/cs/any/Polyfills/"
           BuildAction="Compile"
           CopyToOutput="false"
           Visible="false" />
